@@ -31,7 +31,7 @@
                   <div class="subheading">Vote</div>
                   <v-btn @click="upQuestion">Up ({{ currQuestion.upvotes.length }})</v-btn>
                   <v-btn @click="downQuestion">Down ({{ currQuestion.downvotes.length }})</v-btn>
-                  <span>{{getQuestionVotes}}</span>
+                  <span>Total: {{getQuestionVotes}}</span>
                 </v-flex>
 
               </v-layout>
@@ -69,9 +69,8 @@
                   </v-card-text>
                 </v-flex>
                 <v-flex xs4 text-xs-center>
-                  <v-btn>Up</v-btn>
-                  <v-btn>Down</v-btn>
-                  <span>0</span>
+                  <v-btn @click="upAnswer(answer._id)">Up ({{answer.upvotes.length}})</v-btn>
+                  <v-btn @click="downAnswer(answer._id)">Down ({{answer.downvotes.length}})</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -135,6 +134,20 @@ export default {
     downQuestion () {
       this.downvoteQuestion({
         questionId: this.params
+      })
+    },
+    upAnswer (answerId) {
+      // console.log(answerId)
+      this.upvoteAnswer({
+        questionId: this.params,
+        answerId
+      })
+    },
+    downAnswer (answerId) {
+      // console.log(answerId)
+      this.downvoteAnswer({
+        questionId: this.params,
+        answerId
       })
     },
     getUserInfo () {

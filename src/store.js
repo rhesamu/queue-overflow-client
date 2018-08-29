@@ -146,7 +146,7 @@ export default new Vuex.Store({
           console.log(response)
         })
     },
-    upvoteQuestion ({ commit, dispatch }, payload) {
+    upvoteQuestion ({ dispatch }, payload) {
       let { questionId } = payload
       axios({
         method: 'put',
@@ -161,7 +161,7 @@ export default new Vuex.Store({
           console.log(response)
         })
     },
-    downvoteQuestion ({ commit, dispatch }, payload) {
+    downvoteQuestion ({ dispatch }, payload) {
       let { questionId } = payload
       axios({
         method: 'put',
@@ -189,7 +189,7 @@ export default new Vuex.Store({
           console.log('get comments error', response)
         })
     },
-    addAnswer ({ commit, dispatch }, payload) {
+    addAnswer ({ dispatch }, payload) {
       let { answer, questionId } = payload
 
       axios({
@@ -199,6 +199,36 @@ export default new Vuex.Store({
         data: {
           questionId, answer
         }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          dispatch('getAnswers', questionId)
+        })
+        .catch(({ response }) => {
+          console.log(response)
+        })
+    },
+    upvoteAnswer ({ dispatch }, payload) {
+      let { questionId, answerId } = payload
+      axios({
+        method: 'put',
+        url: `${this.state.baseUrl}/answers/upvote/${answerId}`,
+        headers: { token: this.state.token }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          dispatch('getAnswers', questionId)
+        })
+        .catch(({ response }) => {
+          console.log(response)
+        })
+    },
+    downvoteAnswer ({ dispatch }, payload) {
+      let { questionId, answerId } = payload
+      axios({
+        method: 'put',
+        url: `${this.state.baseUrl}/answers/downvote/${answerId}`,
+        headers: { token: this.state.token }
       })
         .then(({ data }) => {
           console.log(data)
