@@ -28,10 +28,18 @@ export default new Router({
     {
       path: '/add',
       name: 'add-question',
-      component: () => import('./views/AddQuestion.vue')
+      component: () => import('./views/AddQuestion.vue'),
+      beforeEnter: (to, from, next) => {
+        let token = localStorage.getItem('overflow-token')
+        if (token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     },
     {
-      path: '/edit',
+      path: '/edit/:id',
       name: 'edit-question',
       component: () => import('./views/EditQuestion.vue')
     },

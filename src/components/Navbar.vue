@@ -1,8 +1,10 @@
 <template>
   <v-toolbar>
-    <v-toolbar-title>Queue Overflow</v-toolbar-title>
+    <v-toolbar-title>
+      <router-link to="/" style="text-decoration: none; color: black;">Queue Overflow</router-link>
+    </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn v-if="isLogin">+ Question</v-btn>
+    <v-btn v-if="isLogin" to="/add">+ Question</v-btn>
     <v-btn v-if="isLogin" @click="logout">Log out</v-btn>
     <v-btn v-if="!isLogin" to="/login">Log In</v-btn>
   </v-toolbar>
